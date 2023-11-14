@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DB_NAME: wpdb
+    volumes:
+    - ./wordpress:/var/www/html
+    networks:
+      - wpsite
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - wpsite
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      # - PMA_ARBITRARY=1
+      PMA_HOST: db  
+    depends_on:
+      - db
+    networks:
+      - wpsite
+
+networks:
+  wpsite:
+
+volumes:
+  db:
+  wordpress:
