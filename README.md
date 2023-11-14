@@ -2,8 +2,6 @@
 
 ## WordPress & Docker
 
-**README.md**
-
 **WordPress, MariaDB e phpMyAdmin com Docker Compose**
 
 Este repositório contém um arquivo docker-compose.yml para iniciar um ambiente WordPress completo, incluindo MariaDB e phpMyAdmin.
